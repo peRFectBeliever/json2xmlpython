@@ -1,0 +1,23 @@
+version: '2'
+services:
+
+ encrypt:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: json_xml_converter_encryptor.py
+    volumes:
+    - ./src:/src/
+    - ./dest:/dest/
+    - ./:/app
+
+ decrypt:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+    - encrypt
+    command: decrypter.py
+    volumes:
+    - ./dest:/dest/
+    - ./:/app
